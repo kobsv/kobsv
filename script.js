@@ -1,24 +1,135 @@
 /* ============================================================
    script.js — interaktivitet for Veilaget-hjemmesiden
-   Forventer at docs/docs-data.js er lastet inn først,
-   slik at window.veilagetDocs er tilgjengelig.
+
+   Innholdet på siden hentes nå fra JSON-filer i content/-mappen.
+   Dette gjør at en CMS (Decap) kan redigere innholdet uten å
+   måtte røre HTML eller JavaScript.
    ============================================================ */
 
-// ---------- Hamburger-meny (mobil) ----------
-var menyKnapp = document.getElementById('menyKnapp');
-var hovedmeny = document.getElementById('hovedmeny');
+// ---------- Hjelpefunksjon: hent JSON ----------
+async function hentJson(filsti) {
+  try {
+    const respons = await fetch(filsti);
+    if (!respons.ok) throw new Error('Status ' + respons.status);
+    return await respons.json();
+  } catch (err) {
+    console.warn('Klarte ikke å laste ' + filsti + ':', err.message);
+    return null;
+  }
+}
 
-// Toggle meny åpen/lukket når man klikker på hamburgerknappen
-menyKnapp.addEventListener('click', function() {
-  var erAapen = hovedmeny.classList.toggle('aapen');
+// ---------- Populer "Hjem"-seksjonen ----------
+function populerHjem(data) {
+  if (!data) return;
+  document.getElementById('hjem-tittel').textContent = data.tittel || '';
+  document.getElementById('hjem-undertittel').textContent = data.undertittel || '';
+  document.getElementById('hjem-info').textContent = data.info || '';
+}
+
+// ---------- Populer "Styret" ----------
+function populerStyret(data) {
+  if (!data) return;
+  const grid = document.getElementById('styret-grid');
+  grid.innerHTML = '';  // tøm "Laster..."-meldingen
+
+  if (data.tittel) {
+    document.getElementById('styret-tittel').textContent = data.tittel;
+  }
+
+  (data.medlemmer || []).forEach(function (medlem) {
+    const kort = document.createElement('div');
+    kort.className = 'styremedlem';
+    kort.innerHTML =
+      '<h3>' + medlem.navn + '</h3>' +
+      '<p class="rolle">' + medlem.rolle + '</p>' +
+      '<p class="adresse">' + medlem.adresse + '</p>';
+    grid.appendChild(kort);
+  });
+}
+
+// ---------- Populer "Footer" ----------
+function populerFooter(data) {
+  if (!data) return;
+  document.getElementById('footer-navn').textContent = data.navn || '';
+  document.getElementById('footer-orgnr').textContent = data.orgnr || '';
+  document.getElementById('footer-kopirett').textContent = data.kopirett || '';
+}
+
+// ---------- Populer "Dokumenter" ----------
+// Velger riktig ikon basert på filtype
+function velgIkon(filnavn) {
+  const endelse = filnavn.split('.').pop().toLowerCase();
+  if (endelse === 'pdf') return '📄';
+  if (endelse === 'doc' || endelse === 'docx') return '📝';
+  if (endelse === 'xls' || endelse === 'xlsx') return '📊';
+  if (endelse === 'jpg' || endelse === 'jpeg' || endelse === 'png') return '🖼️';
+  if (endelse === 'txt') return '📃';
+  return '📁';
+}
+
+function populerDokumenter(data) {
+  if (!data) return;
+  const introEl = document.getElementById('dokumenter-intro');
+  const liste = document.getElementById('dokumentListe');
+
+  if (data.intro) introEl.textContent = data.intro;
+
+  const dokumenter = data.dokumenter || [];
+  liste.innerHTML = '';
+
+  if (dokumenter.length === 0) {
+    liste.innerHTML = '<li>Ingen dokumenter publisert ennå.</li>';
+    return;
+  }
+
+  dokumenter.forEach(function (dok) {
+    const li = document.createElement('li');
+    li.innerHTML =
+      '<div class="dok-ikon">' + (dok.ikon || velgIkon(dok.filnavn)) + '</div>' +
+      '<div class="dok-info">' +
+        '<div class="tittel">' + dok.tittel + '</div>' +
+        '<div class="dato">' + (dok.dato || '') + '</div>' +
+      '</div>' +
+      '<a class="dok-link" href="docs/' + dok.filnavn + '" target="_blank">Åpne</a>';
+    liste.appendChild(li);
+  });
+}
+
+// ---------- Last inn alt innhold parallelt ----------
+async function lastInnAltInnhold() {
+  const [hjem, styret, footer, dokumenter] = await Promise.all([
+    hentJson('content/hjem.json'),
+    hentJson('content/styret.json'),
+    hentJson('content/footer.json'),
+    hentJson('content/dokumenter.json')
+  ]);
+
+  populerHjem(hjem);
+  populerStyret(styret);
+  populerFooter(footer);
+  populerDokumenter(dokumenter);
+}
+
+lastInnAltInnhold();
+
+// ============================================================
+// INTERAKTIVITET (uavhengig av innholdslasting)
+// ============================================================
+
+// ---------- Hamburger-meny (mobil) ----------
+const menyKnapp = document.getElementById('menyKnapp');
+const hovedmeny = document.getElementById('hovedmeny');
+
+menyKnapp.addEventListener('click', function () {
+  const erAapen = hovedmeny.classList.toggle('aapen');
   menyKnapp.classList.toggle('aapen', erAapen);
   menyKnapp.setAttribute('aria-expanded', erAapen);
   menyKnapp.setAttribute('aria-label', erAapen ? 'Lukk meny' : 'Åpne meny');
 });
 
 // Lukk menyen automatisk når man klikker på en lenke
-hovedmeny.querySelectorAll('a').forEach(function(lenke) {
-  lenke.addEventListener('click', function() {
+hovedmeny.querySelectorAll('a').forEach(function (lenke) {
+  lenke.addEventListener('click', function () {
     hovedmeny.classList.remove('aapen');
     menyKnapp.classList.remove('aapen');
     menyKnapp.setAttribute('aria-expanded', 'false');
@@ -27,27 +138,21 @@ hovedmeny.querySelectorAll('a').forEach(function(lenke) {
 });
 
 // ---------- One-page-navigasjon ----------
-// Vis bare den seksjonen som matcher URL-hashen (#om, #styret osv.)
 function visAktivSeksjon() {
-  // Hvis ingen hash er satt, start på "hjem"
-  var hash = window.location.hash.replace('#', '') || 'hjem';
+  const hash = window.location.hash.replace('#', '') || 'hjem';
 
-  // Skjul alle seksjoner ved å fjerne "aktiv"-klassen
-  document.querySelectorAll('.side-seksjon').forEach(function(seksjon) {
+  document.querySelectorAll('.side-seksjon').forEach(function (seksjon) {
     seksjon.classList.remove('aktiv');
   });
 
-  // Vis den valgte seksjonen (hvis den finnes)
-  var aktivSeksjon = document.getElementById(hash);
+  const aktivSeksjon = document.getElementById(hash);
   if (aktivSeksjon) {
     aktivSeksjon.classList.add('aktiv');
   } else {
-    // Hvis hashen ikke matcher noe, fall tilbake til hjem
     document.getElementById('hjem').classList.add('aktiv');
   }
 
-  // Marker tilsvarende lenke i menyen
-  document.querySelectorAll('nav a').forEach(function(lenke) {
+  document.querySelectorAll('nav a').forEach(function (lenke) {
     if (lenke.getAttribute('href') === '#' + hash) {
       lenke.classList.add('aktiv-meny');
     } else {
@@ -55,42 +160,33 @@ function visAktivSeksjon() {
     }
   });
 
-  // Rull til toppen av siden når man bytter
   window.scrollTo(0, 0);
 }
 
-// Kjør funksjonen når URL-hashen endrer seg
 window.addEventListener('hashchange', visAktivSeksjon);
-
-// Kjør funksjonen én gang når siden lastes inn
 visAktivSeksjon();
 
-// ---------- Kontaktskjema ----------
-// Sender skjemaet til Web3Forms via fetch (AJAX) slik at brukeren
-// blir på siden og får en bekreftelse uten å bli omdirigert.
-// Web3Forms vil ha JSON-body (i motsetning til Formspree som tar FormData).
-document.getElementById('kontaktSkjema').addEventListener('submit', async function(e) {
-  e.preventDefault();  // hindrer at nettleseren sender skjemaet på vanlig måte
-  var form = this;
-  var bekreftelse = document.getElementById('bekreftelse');
-  var sendKnapp = form.querySelector('button[type="submit"]');
+// ---------- Kontaktskjema (Web3Forms) ----------
+document.getElementById('kontaktSkjema').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const form = this;
+  const bekreftelse = document.getElementById('bekreftelse');
+  const sendKnapp = form.querySelector('button[type="submit"]');
 
-  // Honeypot-sjekk: hvis bot-feltet er fylt ut, er det en bot - dropp stille
+  // Honeypot-sjekk: hvis bot-feltet er fylt ut, drop stille
   if (form.querySelector('[name="botcheck"]').checked) {
-    bekreftelse.style.display = 'block';  // Vis falsk bekreftelse til boten
+    bekreftelse.style.display = 'block';
     return;
   }
 
-  // Deaktiver knappen mens vi sender
   sendKnapp.disabled = true;
   sendKnapp.textContent = 'Sender...';
 
-  // Konverter FormData til vanlig objekt → JSON (Web3Forms-format)
-  var formData = new FormData(form);
-  var data = Object.fromEntries(formData.entries());
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
 
   try {
-    var svar = await fetch(form.action, {
+    const svar = await fetch(form.action, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -99,10 +195,9 @@ document.getElementById('kontaktSkjema').addEventListener('submit', async functi
       }
     });
 
-    var resultat = await svar.json();
+    const resultat = await svar.json();
 
     if (svar.ok && resultat.success) {
-      // Alt gikk bra – vis bekreftelse og tøm skjemaet
       bekreftelse.style.display = 'block';
       form.reset();
       bekreftelse.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -116,48 +211,3 @@ document.getElementById('kontaktSkjema').addEventListener('submit', async functi
     sendKnapp.textContent = 'Send melding';
   }
 });
-
-// ---------- Dokumentliste ----------
-// Velger riktig ikon basert på filtype
-function velgIkon(filnavn) {
-  var endelse = filnavn.split('.').pop().toLowerCase();
-  if (endelse === 'pdf') return '📄';
-  if (endelse === 'doc' || endelse === 'docx') return '📝';
-  if (endelse === 'xls' || endelse === 'xlsx') return '📊';
-  if (endelse === 'jpg' || endelse === 'jpeg' || endelse === 'png') return '🖼️';
-  if (endelse === 'txt') return '📃';
-  return '📁';
-}
-
-// Gjør filnavn pent: "arsmote-referat-2025.pdf" → "Arsmote referat 2025"
-function pyntFilnavn(filnavn) {
-  var utenEndelse = filnavn.replace(/\.[^.]+$/, '');
-  var medMellomrom = utenEndelse.replace(/[-_]/g, ' ');
-  return medMellomrom.charAt(0).toUpperCase() + medMellomrom.slice(1);
-}
-
-// Bygger HTML for dokumentlisten basert på window.veilagetDocs
-function renderDokumenter() {
-  var liste = document.getElementById('dokumentListe');
-  var dokumenter = window.veilagetDocs || [];
-
-  if (dokumenter.length === 0) {
-    liste.innerHTML = '<li>Ingen dokumenter funnet.</li>';
-    return;
-  }
-
-  liste.innerHTML = '';
-  dokumenter.forEach(function(dok) {
-    var li = document.createElement('li');
-    li.innerHTML =
-      '<div class="dok-ikon">' + (dok.ikon || velgIkon(dok.filnavn)) + '</div>' +
-      '<div class="dok-info">' +
-        '<div class="tittel">' + (dok.tittel || pyntFilnavn(dok.filnavn)) + '</div>' +
-        '<div class="dato">' + (dok.dato || '') + '</div>' +
-      '</div>' +
-      '<a class="dok-link" href="docs/' + dok.filnavn + '" target="_blank">Åpne</a>';
-    liste.appendChild(li);
-  });
-}
-
-renderDokumenter();

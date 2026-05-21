@@ -35,14 +35,12 @@
     </div>
   </header>
 
-  <!-- ========== HJEM (hero) ========== -->
+  <!-- ========== HJEM (hero) ==========
+       Innhold fylles fra content/hjem.json av script.js -->
   <div class="hero side-seksjon" id="hjem">
-    <h1>Kolbjørnbakken og Berte Styris veg veilag</h1>
-    <p>Vi tar vare på veien vår sammen – vinter som sommer.</p>
-    <p class="hero-undertekst">
-      Velg et menypunkt over for å lese om veilaget,
-      finne dokumenter eller kontakte styret.
-    </p>
+    <h1 id="hjem-tittel">Laster...</h1>
+    <p id="hjem-undertittel"></p>
+    <p class="hero-undertekst" id="hjem-info"></p>
   </div>
 
   <!-- ========== OM OSS ========== -->
@@ -60,40 +58,12 @@
     </p>
   </section>
 
-  <!-- ========== STYRET ========== -->
+  <!-- ========== STYRET ==========
+       Innhold fylles fra content/styret.json av script.js -->
   <section class="side-seksjon" id="styret">
-    <h2>Styret</h2>
-    <div class="styret-grid">
-      <div class="styremedlem">
-        <h3>Hugo Moen</h3>
-        <p class="rolle">Styreleder</p>
-        <p class="adresse">Kolbjørnbakken 31</p>
-      </div>
-      <div class="styremedlem">
-        <h3>Inger Cock-Olsen</h3>
-        <p class="rolle">Styremedlem</p>
-        <p class="adresse">Kolbjørnbakken 27</p>
-      </div>
-      <div class="styremedlem">
-        <h3>Trine Lien</h3>
-        <p class="rolle">Styremedlem</p>
-        <p class="adresse">Kolbjørnbakken 20</p>
-      </div>
-      <div class="styremedlem">
-        <h3>Atle Aas</h3>
-        <p class="rolle">Styremedlem</p>
-        <p class="adresse">Berte Styris veg 6</p>
-      </div>
-      <div class="styremedlem">
-        <h3>Jan Edvin Johannessen</h3>
-        <p class="rolle">Styremedlem</p>
-        <p class="adresse">Berte Styris veg 9</p>
-      </div>
-      <div class="styremedlem">
-        <h3>Martin Klokkerengen</h3>
-        <p class="rolle">Vara</p>
-        <p class="adresse">Kolbjørnbakken 22</p>
-      </div>
+    <h2 id="styret-tittel">Styret</h2>
+    <div class="styret-grid" id="styret-grid">
+      <p>Laster styret...</p>
     </div>
   </section>
 
@@ -139,14 +109,11 @@
     </div>
   </section>
 
-  <!-- ========== DOKUMENTER ========== -->
+  <!-- ========== DOKUMENTER ==========
+       Innhold fylles fra content/dokumenter.json av script.js -->
   <section class="side-seksjon" id="dokumenter">
     <h2>Dokumenter</h2>
-    <p>
-      Her finner du offentlige dokumenter som gjelder veilaget – typisk vedtekter,
-      årsmøteinnkallinger, årsmøteprotokoller, budsjett, regnskap, prosjektinformasjon
-      og retningslinjer. Dokumentene oppdateres etter hvert som nye vedtak fattes.
-    </p>
+    <p id="dokumenter-intro">Laster...</p>
     <div class="dokumenter">
       <ul id="dokumentListe">
         <li>Laster dokumenter...</li>
@@ -232,20 +199,19 @@
     </div>
   </section>
 
-  <!-- ========== FOOTER ========== -->
+  <!-- ========== FOOTER ==========
+       Innhold fylles fra content/footer.json av script.js -->
   <footer>
-    <p><strong>Kolbjørnbakken og Berte Styris veg veilag</strong></p>
-    <p>Org.nr: [organisasjonsnummer]</p>
-    <p>© 2026 – Alle rettigheter forbeholdt</p>
+    <p><strong id="footer-navn"></strong></p>
+    <p>Org.nr: <span id="footer-orgnr"></span></p>
+    <p id="footer-kopirett"></p>
   </footer>
 
   <!-- ========== SCRIPTS ==========
-       Rekkefølgen er viktig:
-       1. docs-data.js definerer window.veilagetDocs
-       2. script.js bruker den til å bygge dokumentlisten
-       defer = vent til HTML er ferdig lastet, men last filene parallelt
+       script.js henter innhold fra content/-mappen (JSON-filer)
+       og populerer DOM-en når siden lastes.
+       defer = vent til HTML er parset før scriptet kjører
   -->
-  <script src="docs/docs-data.js" defer></script>
   <script src="script.js" defer></script>
 
 </body>

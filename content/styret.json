@@ -1,0 +1,35 @@
+{
+  "tittel": "Styret",
+  "medlemmer": [
+    {
+      "navn": "Hugo Moen",
+      "rolle": "Styreleder",
+      "adresse": "Kolbjørnbakken 31"
+    },
+    {
+      "navn": "Inger Cock-Olsen",
+      "rolle": "Styremedlem",
+      "adresse": "Kolbjørnbakken 27"
+    },
+    {
+      "navn": "Trine Lien",
+      "rolle": "Styremedlem",
+      "adresse": "Kolbjørnbakken 20"
+    },
+    {
+      "navn": "Atle Aas",
+      "rolle": "Styremedlem",
+      "adresse": "Berte Styris veg 6"
+    },
+    {
+      "navn": "Jan Edvin Johannessen",
+      "rolle": "Styremedlem",
+      "adresse": "Berte Styris veg 9"
+    },
+    {
+      "navn": "Martin Klokkerengen",
+      "rolle": "Vara",
+      "adresse": "Kolbjørnbakken 22"
+    }
+  ]
+}
