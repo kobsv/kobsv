@@ -1,0 +1,42 @@
+# ============================================================
+#  .gitignore
+#  Filer som ikke skal versjonsstyres i Git-repoet
+# ============================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+
+# Editor-filer
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# Logger og midlertidige filer
+*.log
+*.tmp
+*.bak
+*.cache
+
+# Node (hvis vi noensinne legger til build-verktøy)
+node_modules/
+package-lock.json
+
+# Lokale konfigurasjonsfiler med hemmeligheter
+.env
+.env.local
+secrets.json

@@ -1,0 +1,447 @@
+/* ============================================================
+   style.css — all design og layout for Veilaget-hjemmesiden
+   ============================================================ */
+
+/* ---------- One-page-navigasjon ----------
+   Alle seksjoner med .side-seksjon er skjult som standard,
+   og bare den som har .aktiv vises av gangen. */
+.side-seksjon { display: none; }
+.side-seksjon.aktiv { display: block; }
+
+/* Markering av aktivt menypunkt */
+nav a.aktiv-meny {
+  border-bottom: 2px solid var(--hvit);
+  padding-bottom: 2px;
+}
+
+/* Undertekst i hero */
+.hero-undertekst {
+  margin-top: 1.5rem !important;
+  font-size: 1rem !important;
+  color: var(--grafitt) !important;
+  font-style: italic;
+}
+
+/* ---------- Grunnstil ---------- */
+:root {
+  --blaa: #34495e;          /* litt lysere variant – knapper, aksent */
+  --blaa-morkt: #2c3e50;    /* hovedfarge – toppmeny, footer, overskrifter */
+  --blaa-lys: #5d6d7e;      /* lys variant – tilgjengelig hvis trengs */
+  --bakgrunn: #f4f7fb;      /* sval lys bakgrunn */
+  --tekst: #1a202c;
+  --grafitt: #4a5568;
+  --hvit: #ffffff;
+  --skygge: 0 2px 8px rgba(0,0,0,0.08);
+  --kant: #d4dce5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--tekst);
+  background: var(--bakgrunn);
+  line-height: 1.6;
+}
+
+a { color: var(--blaa-morkt); }
+
+/* ---------- Toppmeny ---------- */
+header {
+  background: var(--blaa-morkt);
+  color: var(--hvit);
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  box-shadow: var(--skygge);
+  z-index: 10;
+}
+
+.nav-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: var(--hvit);
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+nav a:hover { opacity: 0.75; }
+
+/* ---------- Hamburger-knapp ---------- */
+/* Skjult på desktop, vises bare på mobil */
+.meny-knapp {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.meny-knapp span {
+  display: block;
+  height: 3px;
+  width: 26px;
+  background: var(--hvit);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+/* Når menyen er åpen: gjør hamburgeren om til en "X" */
+.meny-knapp.aapen span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.meny-knapp.aapen span:nth-child(2) {
+  opacity: 0;
+}
+.meny-knapp.aapen span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  /* Bruker samme bakgrunn som resten av siden (--sand) – ingen egen farge */
+  padding: 5rem 2rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin: 0 0 1rem;
+  color: var(--blaa-morkt);
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--tekst);
+}
+
+/* Liten dekorativ strek under hero-tittelen */
+.hero h1::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--blaa);
+  margin: 1rem auto 0;
+}
+
+/* ---------- Seksjoner ---------- */
+section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+section h2 {
+  color: var(--blaa-morkt);
+  font-size: 1.8rem;
+  margin-top: 0;
+  border-bottom: 3px solid var(--blaa);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+/* ---------- Styret-grid ---------- */
+.styret-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.styremedlem {
+  background: var(--hvit);
+  border: 1px solid var(--kant);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--skygge);
+}
+
+.styremedlem h3 {
+  margin: 0 0 0.25rem;
+  color: var(--blaa-morkt);
+}
+
+.styremedlem .rolle {
+  font-size: 0.9rem;
+  color: var(--grafitt);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.styremedlem .adresse {
+  font-size: 0.95rem;
+  margin: 0;
+  color: var(--grafitt);
+}
+
+/* ---------- Prosjekter (info-liste) ---------- */
+.info-liste {
+  background: var(--hvit);
+  border-radius: 8px;
+  padding: 1rem 1.5rem 1rem 2.5rem;
+  margin-top: 1.5rem;
+  box-shadow: var(--skygge);
+}
+
+.info-liste li {
+  padding: 0.4rem 0;
+}
+
+/* ---------- Praktisk info-kort ---------- */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.info-kort {
+  background: var(--hvit);
+  border-left: 4px solid var(--blaa);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--skygge);
+}
+
+.info-kort h3 {
+  margin: 0 0 0.5rem;
+  color: var(--blaa-morkt);
+  font-size: 1.05rem;
+}
+
+.info-kort p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ---------- Dokumenter ---------- */
+.dokumenter {
+  background: var(--hvit);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: var(--skygge);
+  margin-top: 2rem;
+}
+
+.dokumenter ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dokumenter li {
+  padding: 1rem;
+  border-bottom: 1px solid var(--kant);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dokumenter li:last-child { border-bottom: none; }
+
+.dok-ikon {
+  width: 36px;
+  height: 36px;
+  background: var(--bakgrunn);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.dok-info { flex: 1; }
+.dok-info .tittel { font-weight: 600; }
+.dok-info .dato { font-size: 0.85rem; color: var(--grafitt); }
+
+.dok-link {
+  color: var(--blaa-morkt);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.dok-link:hover { text-decoration: underline; }
+
+/* ---------- Kontaktskjema ---------- */
+.skjema-wrap {
+  background: var(--hvit);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: var(--skygge);
+  margin-top: 2rem;
+}
+
+.skjema-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.full-bredde { grid-column: 1 / -1; }
+
+/* Honeypot: usynlig for mennesker, men fylles av automatiserte bots.
+   position: absolute + flytte ut av synsfeltet er mer robust enn
+   "display: none" – noen bots ignorerer display:none-felter. */
+.honeypot-felt {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  color: var(--grafitt);
+  font-size: 0.95rem;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid var(--kant);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--bakgrunn);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--blaa);
+  background: var(--hvit);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+button {
+  background: var(--blaa);
+  color: var(--hvit);
+  border: none;
+  padding: 0.9rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover { background: var(--blaa-morkt); }
+
+.melding {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #e3edf7;
+  border-left: 4px solid var(--blaa);
+  border-radius: 4px;
+  display: none;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  background: var(--blaa-morkt);
+  color: var(--hvit);
+  text-align: center;
+  padding: 2rem;
+  margin-top: 4rem;
+}
+
+footer p { margin: 0.3rem 0; opacity: 0.9; }
+
+/* ---------- Mobil/tablet: hamburger-meny ---------- */
+@media (max-width: 800px) {
+  /* Vis hamburger-knappen */
+  .meny-knapp { display: flex; }
+
+  /* Hold logo og knapp på samme linje */
+  .nav-wrap { flex-wrap: nowrap; }
+
+  /* Menyen ligger skjult og folder ut som nedtrekk under headeren */
+  nav ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--blaa-morkt);
+    margin: 0;
+    padding: 0.5rem 1.5rem;
+    gap: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+
+  nav ul.aapen { display: flex; }
+
+  nav ul li {
+    padding: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+
+  nav ul li:last-child { border-bottom: none; }
+
+  /* Hele raden er klikkbar – padding flyttes fra <li> til <a> */
+  nav ul li a {
+    display: block;
+    padding: 1rem 0.5rem;
+    width: 100%;
+  }
+
+  /* Aktiv-markering: bytt fra understrek til venstre kant på mobil */
+  nav a.aktiv-meny {
+    border-bottom: none;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--hvit);
+    background: rgba(255,255,255,0.05);
+  }
+}
+
+/* ---------- Mobil: finjusteringer ---------- */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.8rem; }
+  .hero p { font-size: 1rem; }
+  .skjema-grid { grid-template-columns: 1fr; }
+  section { padding: 3rem 1rem; }
+}

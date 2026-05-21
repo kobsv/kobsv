@@ -1,174 +1,252 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="nb">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kolbjørnbakken og Berte Styris veg veilag</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            background: #f7f7f7;
-            color: #222;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kolbjørnbakken og Berte Styris veg veilag</title>
 
-        header {
-            background: #2c3e50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav {
-            margin-top: 10px;
-        }
-
-        nav a {
-            color: #ecf0f1;
-            margin: 0 12px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        section {
-            padding: 40px 20px;
-            max-width: 900px;
-            margin: auto;
-            background: white;
-            margin-top: 20px;
-            border-radius: 6px;
-        }
-
-        h2 {
-            color: #2c3e50;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 6px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            background: #2c3e50;
-            color: white;
-        }
-    </style>
+  <!-- Ekstern stilfil med all design/layout -->
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<header>
-    <h1>Kolbjørnbakken og Berte Styris veg veilag</h1>
-    <nav>
-        <a href="#om">Om veilaget</a>
-        <a href="#dokumenter">Dokumenter</a>
-        <a href="#personvern">Personvern</a>
-        <a href="#prosjekter">Prosjekter</a>
-        <a href="#praktisk">Praktisk info</a>
-        <a href="#kontakt">Kontakt</a>
-    </nav>
-</header>
+  <!-- ========== TOPPMENY ========== -->
+  <header>
+    <div class="nav-wrap">
+      <div class="logo">KOBSV</div>
+      <nav>
+        <!-- Hamburger-knapp (vises bare på mobil) -->
+        <button class="meny-knapp" id="menyKnapp" aria-label="Åpne meny" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul id="hovedmeny">
+          <li><a href="#hjem">Hjem</a></li>
+          <li><a href="#om">Om oss</a></li>
+          <li><a href="#styret">Styret</a></li>
+          <li><a href="#prosjekter">Prosjekter</a></li>
+          <li><a href="#praktisk">Praktisk info</a></li>
+          <li><a href="#dokumenter">Dokumenter</a></li>
+          <li><a href="#personvern">Personvern</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-<section id="om">
+  <!-- ========== HJEM (hero) ========== -->
+  <div class="hero side-seksjon" id="hjem">
+    <h1>Kolbjørnbakken og Berte Styris veg veilag</h1>
+    <p>Vi tar vare på veien vår sammen – vinter som sommer.</p>
+    <p class="hero-undertekst">
+      Velg et menypunkt over for å lese om veilaget,
+      finne dokumenter eller kontakte styret.
+    </p>
+  </div>
+
+  <!-- ========== OM OSS ========== -->
+  <section class="side-seksjon" id="om">
     <h2>Om veilaget</h2>
     <p>
-        Kolbjørnbakken og Berte Styris veg veilag er et privat veilag etablert gjennom jordskifteretten.
-        Veilaget har ansvar for drift, vedlikehold og utvikling av veiene i området, inkludert grøfting,
-        drenering, snøbrøyting og generell standard.
+      Kolbjørnbakken og Berte Styris veg veilag er et privat veilag etablert gjennom jordskifteretten.
+      Veilaget har ansvar for drift, vedlikehold og utvikling av veiene i området,
+      inkludert grøfting, drenering, snøbrøyting og generell standard.
     </p>
     <p>
-        Veilaget består av eiendommer med tilknytning til veien, og driftes av et valgt styre.
-        Styret arbeider for å sikre trygg ferdsel, god fremkommelighet og langsiktig forvaltning av infrastrukturen.
+      Veilaget består av eiendommer med tilknytning til veien, og driftes av et valgt styre.
+      Styret arbeider for å sikre trygg ferdsel, god fremkommelighet og langsiktig
+      forvaltning av infrastrukturen.
     </p>
-</section>
+  </section>
 
-<section id="dokumenter">
-    <h2>Dokumenter</h2>
-    <p>Her finner du offentlige dokumenter som gjelder veilaget:</p>
-    <ul>
-        <li>Vedtekter</li>
-        <li>Årsmøteinnkallinger</li>
-        <li>Årsmøteprotokoller</li>
-        <li>Budsjett og regnskap</li>
-        <li>Informasjon om prosjekter</li>
-        <li>Retningslinjer og rutiner</li>
+  <!-- ========== STYRET ========== -->
+  <section class="side-seksjon" id="styret">
+    <h2>Styret</h2>
+    <div class="styret-grid">
+      <div class="styremedlem">
+        <h3>Hugo Moen</h3>
+        <p class="rolle">Styreleder</p>
+        <p class="adresse">Kolbjørnbakken 31</p>
+      </div>
+      <div class="styremedlem">
+        <h3>Inger Cock-Olsen</h3>
+        <p class="rolle">Styremedlem</p>
+        <p class="adresse">Kolbjørnbakken 27</p>
+      </div>
+      <div class="styremedlem">
+        <h3>Trine Lien</h3>
+        <p class="rolle">Styremedlem</p>
+        <p class="adresse">Kolbjørnbakken 20</p>
+      </div>
+      <div class="styremedlem">
+        <h3>Atle Aas</h3>
+        <p class="rolle">Styremedlem</p>
+        <p class="adresse">Berte Styris veg 6</p>
+      </div>
+      <div class="styremedlem">
+        <h3>Jan Edvin Johannessen</h3>
+        <p class="rolle">Styremedlem</p>
+        <p class="adresse">Berte Styris veg 9</p>
+      </div>
+      <div class="styremedlem">
+        <h3>Martin Klokkerengen</h3>
+        <p class="rolle">Vara</p>
+        <p class="adresse">Kolbjørnbakken 22</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROSJEKTER OG VEDLIKEHOLD ========== -->
+  <section class="side-seksjon" id="prosjekter">
+    <h2>Prosjekter og vedlikehold</h2>
+    <p>
+      Veilaget arbeider løpende med å sikre god standard på veiene.
+      Aktuelle og gjennomførte tiltak inkluderer:
+    </p>
+    <ul class="info-liste">
+      <li>Grøfting og drenering</li>
+      <li>Erosjonssikring</li>
+      <li>Forsterkning av veikropp</li>
+      <li>Overvannshåndtering og klimatilpasning</li>
+      <li>Snøbrøyting og strøing</li>
+      <li>Vurdering av asfaltering</li>
+      <li>Vedlikehold av belysning</li>
     </ul>
-    <p>Dokumentene publiseres som PDF‑filer og oppdateres etter hvert som nye vedtak fattes.</p>
-</section>
+    <p><em>Status for prosjekter oppdateres fortløpende.</em></p>
+  </section>
 
-<section id="personvern">
+  <!-- ========== PRAKTISK INFORMASJON ========== -->
+  <section class="side-seksjon" id="praktisk">
+    <h2>Praktisk informasjon</h2>
+    <div class="info-grid">
+      <div class="info-kort">
+        <h3>Eierskifte</h3>
+        <p>Ny eier må melde fra til styret slik at medlemsregisteret oppdateres.</p>
+      </div>
+      <div class="info-kort">
+        <h3>Veilagsavgift</h3>
+        <p>Faktura sendes ut årlig. Ta kontakt med styret ved spørsmål.</p>
+      </div>
+      <div class="info-kort">
+        <h3>Snøbrøyting</h3>
+        <p>Brøyting utføres etter behov gjennom vinteren. Beboere bes parkere slik at brøyting kan utføres effektivt.</p>
+      </div>
+      <div class="info-kort">
+        <h3>Parkering og ferdsel</h3>
+        <p>Hold veien fri for hindringer og vis hensyn ved møteplasser og svinger.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DOKUMENTER ========== -->
+  <section class="side-seksjon" id="dokumenter">
+    <h2>Dokumenter</h2>
+    <p>
+      Her finner du offentlige dokumenter som gjelder veilaget – typisk vedtekter,
+      årsmøteinnkallinger, årsmøteprotokoller, budsjett, regnskap, prosjektinformasjon
+      og retningslinjer. Dokumentene oppdateres etter hvert som nye vedtak fattes.
+    </p>
+    <div class="dokumenter">
+      <ul id="dokumentListe">
+        <li>Laster dokumenter...</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== PERSONVERN (GDPR) ========== -->
+  <section class="side-seksjon" id="personvern">
     <h2>Personvern (GDPR)</h2>
     <p>
-        Veilaget behandler kun personopplysninger som er nødvendige for drift av veilaget.
-        Dette inkluderer navn, adresse, kontaktinformasjon, andel og innbetalinger.
+      Veilaget behandler kun personopplysninger som er nødvendige for drift av veilaget.
+      Dette inkluderer navn, adresse, kontaktinformasjon, andel og innbetalinger.
     </p>
     <p>
-        Opplysningene brukes til medlemsregister, fakturering av veilagsavgift, kommunikasjon med medlemmene
-        og dokumentasjon i henhold til lovverket.
+      Opplysningene brukes til medlemsregister, fakturering av veilagsavgift,
+      kommunikasjon med medlemmene og dokumentasjon i henhold til lovverket.
     </p>
     <p>
-        Styret har tilgang til opplysningene, og de deles ikke med andre med mindre det er nødvendig for regnskap
-        eller lovpålagte krav. Medlemmer kan be om innsyn ved å kontakte styret.
+      Styret har tilgang til opplysningene, og de deles ikke med andre med mindre
+      det er nødvendig for regnskap eller lovpålagte krav.
+      Medlemmer kan be om innsyn ved å kontakte styret.
     </p>
-</section>
+  </section>
 
-<section id="prosjekter">
-    <h2>Prosjekter og vedlikehold</h2>
-    <p>Veilaget arbeider løpende med å sikre god standard på veiene. Aktuelle og gjennomførte tiltak inkluderer:</p>
-    <ul>
-        <li>Grøfting og drenering</li>
-        <li>Erosjonssikring</li>
-        <li>Forsterkning av veikropp</li>
-        <li>Overvannshåndtering og klimatilpasning</li>
-        <li>Snøbrøyting og strøing</li>
-        <li>Vurdering av asfaltering</li>
-        <li>Vedlikehold av belysning</li>
-    </ul>
-    <p>Status for prosjekter oppdateres fortløpende.</p>
-</section>
-
-<section id="praktisk">
-    <h2>Praktisk informasjon</h2>
-    <p><strong>Eierskifte:</strong> Ny eier må melde fra til styret slik at medlemsregisteret oppdateres.</p>
-    <p><strong>Veilagsavgift:</strong> Faktura sendes ut årlig. Ta kontakt med styret ved spørsmål.</p>
-    <p><strong>Snøbrøyting:</strong> Brøyting utføres etter behov gjennom vinteren. Beboere bes parkere slik at brøyting kan utføres effektivt.</p>
-    <p><strong>Parkering og ferdsel:</strong> Hold veien fri for hindringer og vis hensyn ved møteplasser og svinger.</p>
-</section>
-
-<section id="kontakt">
+  <!-- ========== KONTAKT/MEDLEMSREGISTRERING ========== -->
+  <section class="side-seksjon" id="kontakt">
     <h2>Kontakt oss</h2>
-    <p>For spørsmål, innspill eller innsyn i personopplysninger:</p>
- 
-    <form action="https://formspree.io/f/xeenpydw" method="POST">
+    <p>For spørsmål, innspill, melding om eierskifte eller innsyn i personopplysninger:</p>
 
-  <label for="name">Navn</label><br>
-  <input type="text" id="name" name="name" required><br><br>
+    <div class="skjema-wrap">
+      <form id="kontaktSkjema" action="https://api.web3forms.com/submit" method="POST">
+        <!-- Web3Forms-konfigurasjon -->
+        <!-- TODO: Bytt ut access_key med din egen fra web3forms.com -->
+        <input type="hidden" name="access_key" value="af277511-c3d7-48bf-b5a2-38ce298ae3c1" />
+        <input type="hidden" name="subject" value="Ny henvendelse fra KOBSV-nettsiden" />
+        <input type="hidden" name="from_name" value="KOBSV nettside" />
 
-  <label for="email">Din e‑post</label><br>
-  <input type="email" id="email" name="email" required><br><br>
+        <!-- Honeypot: usynlig felt for å fange opp bots -->
+        <!-- Mennesker fyller det aldri; bots som auto-fyller alt avsløres -->
+        <input type="checkbox" name="botcheck" class="honeypot-felt" tabindex="-1" autocomplete="off" />
 
-  <label for="message">Melding</label><br>
-  <textarea id="message" name="message" rows="6" required></textarea><br><br>
+        <div class="skjema-grid">
+          <div>
+            <label for="name">Navn *</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div>
+            <label for="email">E-post *</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div>
+            <label for="telefon">Telefon</label>
+            <input type="tel" id="telefon" name="telefon" />
+          </div>
+          <div>
+            <label for="adresse">Adresse (langs veien)</label>
+            <input type="text" id="adresse" name="adresse" />
+          </div>
+          <div class="full-bredde">
+            <label for="type">Hva gjelder henvendelsen?</label>
+            <select id="type" name="type">
+              <option>Generell henvendelse</option>
+              <option>Eierskifte</option>
+              <option>Spørsmål om veilagsavgift</option>
+              <option>Melde fra om problem på veien</option>
+              <option>Innsyn i personopplysninger</option>
+              <option>Annet</option>
+            </select>
+          </div>
+          <div class="full-bredde">
+            <label for="message">Melding *</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <div class="full-bredde">
+            <button type="submit">Send melding</button>
+          </div>
+        </div>
+      </form>
+      <div class="melding" id="bekreftelse">
+        ✅ Takk for henvendelsen! Styret svarer normalt innen rimelig tid.
+      </div>
+    </div>
+  </section>
 
-  <button type="submit">Send</button>
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <p><strong>Kolbjørnbakken og Berte Styris veg veilag</strong></p>
+    <p>Org.nr: [organisasjonsnummer]</p>
+    <p>© 2026 – Alle rettigheter forbeholdt</p>
+  </footer>
 
-</form>
-
-    <p>Styret svarer normalt innen rimelig tid.</p>
-</section>
-
-<footer>
-    &copy; Kolbjørnbakken og Berte Styris veg veilag
-</footer>
+  <!-- ========== SCRIPTS ==========
+       Rekkefølgen er viktig:
+       1. docs-data.js definerer window.veilagetDocs
+       2. script.js bruker den til å bygge dokumentlisten
+       defer = vent til HTML er ferdig lastet, men last filene parallelt
+  -->
+  <script src="docs/docs-data.js" defer></script>
+  <script src="script.js" defer></script>
 
 </body>
 </html>
