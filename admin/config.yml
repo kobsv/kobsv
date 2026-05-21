@@ -1,0 +1,173 @@
+# ============================================================
+#  Decap CMS-konfigurasjon for KOBSV
+#  Beskriver hvilket innhold som kan redigeres, og hvordan
+#  feltene skal vises i editor-grensesnittet.
+# ============================================================
+
+# Backend: git-gateway bruker Netlify Identity for innlogging
+# og committer endringer til GitHub via Netlify.
+backend:
+  name: git-gateway
+  branch: main
+
+# Hvor PDF-er og andre opplastede filer havner
+media_folder: "docs"
+public_folder: "/docs"
+
+# Norsk språk i grensesnittet (gjelder feltetiketter osv.)
+locale: "no"
+
+collections:
+
+  # ----------------------------------------------------------
+  # SIDER: faste tekstseksjoner
+  # ----------------------------------------------------------
+  - name: "sider"
+    label: "Sider"
+    description: "Tekstseksjonene på hjemmesiden"
+    files:
+
+      - file: "content/hjem.json"
+        label: "Hjem (forside)"
+        name: "hjem"
+        fields:
+          - { label: "Tittel (stor)", name: "tittel", widget: "string" }
+          - { label: "Undertittel", name: "undertittel", widget: "string" }
+          - { label: "Info-tekst (kursiv)", name: "info", widget: "text" }
+
+      - file: "content/om.json"
+        label: "Om veilaget"
+        name: "om"
+        fields:
+          - { label: "Tittel", name: "tittel", widget: "string" }
+          - label: "Avsnitt"
+            name: "avsnitt"
+            widget: "list"
+            field: { label: "Tekst", name: "tekst", widget: "text" }
+
+      - file: "content/prosjekter.json"
+        label: "Prosjekter og vedlikehold"
+        name: "prosjekter"
+        fields:
+          - { label: "Tittel", name: "tittel", widget: "string" }
+          - { label: "Intro", name: "intro", widget: "text" }
+          - label: "Tiltak"
+            name: "tiltak"
+            widget: "list"
+            field: { label: "Tiltak", name: "tekst", widget: "string" }
+          - { label: "Status-tekst (kursiv)", name: "status_tekst", widget: "string" }
+
+      - file: "content/praktisk.json"
+        label: "Praktisk informasjon"
+        name: "praktisk"
+        fields:
+          - { label: "Tittel", name: "tittel", widget: "string" }
+          - label: "Kort"
+            name: "kort"
+            widget: "list"
+            fields:
+              - { label: "Korttittel", name: "tittel", widget: "string" }
+              - { label: "Tekst", name: "tekst", widget: "text" }
+
+      - file: "content/personvern.json"
+        label: "Personvern (GDPR)"
+        name: "personvern"
+        fields:
+          - { label: "Tittel", name: "tittel", widget: "string" }
+          - label: "Avsnitt"
+            name: "avsnitt"
+            widget: "list"
+            field: { label: "Tekst", name: "tekst", widget: "text" }
+
+      - file: "content/kontakt.json"
+        label: "Kontakt"
+        name: "kontakt"
+        fields:
+          - { label: "Tittel", name: "tittel", widget: "string" }
+          - { label: "Intro", name: "intro", widget: "text" }
+
+      - file: "content/footer.json"
+        label: "Footer (bunntekst)"
+        name: "footer"
+        fields:
+          - { label: "Navn", name: "navn", widget: "string" }
+          - { label: "Org.nr", name: "orgnr", widget: "string" }
+          - { label: "Kopirett-tekst", name: "kopirett", widget: "string" }
+
+  # ----------------------------------------------------------
+  # STYRET
+  # ----------------------------------------------------------
+  - name: "styret"
+    label: "Styret"
+    description: "Styremedlemmer"
+    files:
+      - file: "content/styret.json"
+        label: "Styremedlemmer"
+        name: "styremedlemmer"
+        fields:
+          - { label: "Tittel", name: "tittel", widget: "string" }
+          - label: "Medlemmer"
+            name: "medlemmer"
+            widget: "list"
+            summary: "{{fields.navn}} ({{fields.rolle}})"
+            fields:
+              - { label: "Navn", name: "navn", widget: "string" }
+              - label: "Rolle"
+                name: "rolle"
+                widget: "select"
+                options: ["Styreleder", "Nestleder", "Kasserer", "Sekretær", "Styremedlem", "Vara"]
+                default: "Styremedlem"
+              - { label: "Adresse", name: "adresse", widget: "string" }
+
+  # ----------------------------------------------------------
+  # DOKUMENTER
+  # ----------------------------------------------------------
+  - name: "dokumenter"
+    label: "Dokumenter"
+    description: "PDF-er og andre filer som vises i Dokumenter-seksjonen"
+    files:
+      - file: "content/dokumenter.json"
+        label: "Dokumentliste"
+        name: "dokumentliste"
+        fields:
+          - { label: "Intro-tekst", name: "intro", widget: "text" }
+          - label: "Dokumenter"
+            name: "dokumenter"
+            widget: "list"
+            summary: "{{fields.tittel}}"
+            fields:
+              - { label: "Tittel", name: "tittel", widget: "string" }
+              - { label: "Fil (last opp PDF)", name: "filnavn", widget: "file" }
+              - label: "Dato"
+                name: "dato"
+                widget: "datetime"
+                date_format: "YYYY-MM-DD"
+                time_format: false
+                format: "YYYY-MM-DD"
+
+  # ----------------------------------------------------------
+  # NYHETER / AKTUELT
+  # ----------------------------------------------------------
+  - name: "nyheter"
+    label: "Aktuelt (nyheter)"
+    description: "Nyhetsinnlegg som vises på Aktuelt-siden"
+    files:
+      - file: "content/nyheter.json"
+        label: "Nyhetsinnlegg"
+        name: "nyhetsinnlegg"
+        fields:
+          - { label: "Seksjonstittel", name: "tittel", widget: "string" }
+          - { label: "Intro-tekst", name: "intro", widget: "text" }
+          - label: "Innlegg"
+            name: "innlegg"
+            widget: "list"
+            summary: "{{fields.dato}} – {{fields.tittel}}"
+            fields:
+              - { label: "Tittel", name: "tittel", widget: "string" }
+              - label: "Dato"
+                name: "dato"
+                widget: "datetime"
+                date_format: "YYYY-MM-DD"
+                time_format: false
+                format: "YYYY-MM-DD"
+              - { label: "Innhold", name: "innhold", widget: "text" }

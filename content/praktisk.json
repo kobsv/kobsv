@@ -1,0 +1,21 @@
+{
+  "tittel": "Praktisk informasjon",
+  "kort": [
+    {
+      "tittel": "Eierskifte",
+      "tekst": "Ny eier må melde fra til styret slik at medlemsregisteret oppdateres."
+    },
+    {
+      "tittel": "Veilagsavgift",
+      "tekst": "Faktura sendes ut årlig. Ta kontakt med styret ved spørsmål."
+    },
+    {
+      "tittel": "Snøbrøyting",
+      "tekst": "Brøyting utføres etter behov gjennom vinteren. Beboere bes parkere slik at brøyting kan utføres effektivt."
+    },
+    {
+      "tittel": "Parkering og ferdsel",
+      "tekst": "Hold veien fri for hindringer og vis hensyn ved møteplasser og svinger."
+    }
+  ]
+}

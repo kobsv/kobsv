@@ -248,6 +248,33 @@ section h2 {
   font-size: 0.95rem;
 }
 
+/* ---------- Nyheter / Aktuelt ---------- */
+.nyhetspost {
+  background: var(--hvit);
+  border-left: 4px solid var(--blaa);
+  padding: 1.25rem 1.5rem;
+  border-radius: 6px;
+  box-shadow: var(--skygge);
+  margin-bottom: 1.5rem;
+}
+
+.nyhetspost-meta {
+  font-size: 0.85rem;
+  color: var(--grafitt);
+  margin-bottom: 0.25rem;
+}
+
+.nyhetspost-tittel {
+  margin: 0 0 0.75rem;
+  color: var(--blaa-morkt);
+  font-size: 1.2rem;
+}
+
+.nyhetspost-innhold {
+  margin: 0;
+  white-space: pre-wrap;  /* bevarer linjeskift fra innholdsfeltet */
+}
+
 /* ---------- Dokumenter ---------- */
 .dokumenter {
   background: var(--hvit);

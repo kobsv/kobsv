@@ -55,6 +55,102 @@ function populerFooter(data) {
   document.getElementById('footer-kopirett').textContent = data.kopirett || '';
 }
 
+// ---------- Hjelpefunksjon: list av paragrafer ----------
+// Tar et array av strenger og lager <p>-elementer
+function settAvsnitt(container, avsnitt) {
+  container.innerHTML = '';
+  (avsnitt || []).forEach(function (tekst) {
+    const p = document.createElement('p');
+    p.textContent = tekst;
+    container.appendChild(p);
+  });
+}
+
+// ---------- Populer "Om" ----------
+function populerOm(data) {
+  if (!data) return;
+  if (data.tittel) document.getElementById('om-tittel').textContent = data.tittel;
+  settAvsnitt(document.getElementById('om-innhold'), data.avsnitt);
+}
+
+// ---------- Populer "Prosjekter" ----------
+function populerProsjekter(data) {
+  if (!data) return;
+  if (data.tittel) document.getElementById('prosjekter-tittel').textContent = data.tittel;
+  document.getElementById('prosjekter-intro').textContent = data.intro || '';
+  document.getElementById('prosjekter-status').textContent = data.status_tekst || '';
+
+  const liste = document.getElementById('prosjekter-tiltak');
+  liste.innerHTML = '';
+  (data.tiltak || []).forEach(function (tiltak) {
+    const li = document.createElement('li');
+    li.textContent = tiltak;
+    liste.appendChild(li);
+  });
+}
+
+// ---------- Populer "Praktisk informasjon" ----------
+function populerPraktisk(data) {
+  if (!data) return;
+  if (data.tittel) document.getElementById('praktisk-tittel').textContent = data.tittel;
+
+  const grid = document.getElementById('praktisk-grid');
+  grid.innerHTML = '';
+  (data.kort || []).forEach(function (kort) {
+    const div = document.createElement('div');
+    div.className = 'info-kort';
+    div.innerHTML = '<h3></h3><p></p>';
+    div.querySelector('h3').textContent = kort.tittel;
+    div.querySelector('p').textContent = kort.tekst;
+    grid.appendChild(div);
+  });
+}
+
+// ---------- Populer "Personvern" ----------
+function populerPersonvern(data) {
+  if (!data) return;
+  if (data.tittel) document.getElementById('personvern-tittel').textContent = data.tittel;
+  settAvsnitt(document.getElementById('personvern-innhold'), data.avsnitt);
+}
+
+// ---------- Populer "Kontakt" ----------
+function populerKontakt(data) {
+  if (!data) return;
+  if (data.tittel) document.getElementById('kontakt-tittel').textContent = data.tittel;
+  document.getElementById('kontakt-intro').textContent = data.intro || '';
+}
+
+// ---------- Populer "Nyheter" ----------
+function populerNyheter(data) {
+  if (!data) return;
+  if (data.tittel) document.getElementById('nyheter-tittel').textContent = data.tittel;
+  document.getElementById('nyheter-intro').textContent = data.intro || '';
+
+  const container = document.getElementById('nyheter-liste');
+  container.innerHTML = '';
+
+  const innlegg = (data.innlegg || []).slice().sort(function (a, b) {
+    return (b.dato || '').localeCompare(a.dato || '');  // nyeste først
+  });
+
+  if (innlegg.length === 0) {
+    container.innerHTML = '<p>Ingen nyheter publisert ennå.</p>';
+    return;
+  }
+
+  innlegg.forEach(function (post) {
+    const artikkel = document.createElement('article');
+    artikkel.className = 'nyhetspost';
+    artikkel.innerHTML =
+      '<div class="nyhetspost-meta">' + (post.dato || '') + '</div>' +
+      '<h3 class="nyhetspost-tittel"></h3>' +
+      '<div class="nyhetspost-innhold"></div>';
+    artikkel.querySelector('.nyhetspost-tittel').textContent = post.tittel || '';
+    artikkel.querySelector('.nyhetspost-innhold').textContent = post.innhold || '';
+    container.appendChild(artikkel);
+  });
+}
+
 // ---------- Populer "Dokumenter" ----------
 // Velger riktig ikon basert på filtype
 function velgIkon(filnavn) {
@@ -97,17 +193,29 @@ function populerDokumenter(data) {
 
 // ---------- Last inn alt innhold parallelt ----------
 async function lastInnAltInnhold() {
-  const [hjem, styret, footer, dokumenter] = await Promise.all([
+  const [hjem, om, styret, prosjekter, praktisk, dokumenter, personvern, kontakt, nyheter, footer] = await Promise.all([
     hentJson('content/hjem.json'),
+    hentJson('content/om.json'),
     hentJson('content/styret.json'),
-    hentJson('content/footer.json'),
-    hentJson('content/dokumenter.json')
+    hentJson('content/prosjekter.json'),
+    hentJson('content/praktisk.json'),
+    hentJson('content/dokumenter.json'),
+    hentJson('content/personvern.json'),
+    hentJson('content/kontakt.json'),
+    hentJson('content/nyheter.json'),
+    hentJson('content/footer.json')
   ]);
 
   populerHjem(hjem);
+  populerOm(om);
   populerStyret(styret);
-  populerFooter(footer);
+  populerProsjekter(prosjekter);
+  populerPraktisk(praktisk);
   populerDokumenter(dokumenter);
+  populerPersonvern(personvern);
+  populerKontakt(kontakt);
+  populerNyheter(nyheter);
+  populerFooter(footer);
 }
 
 lastInnAltInnhold();

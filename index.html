@@ -23,6 +23,7 @@
         </button>
         <ul id="hovedmeny">
           <li><a href="#hjem">Hjem</a></li>
+          <li><a href="#nyheter">Aktuelt</a></li>
           <li><a href="#om">Om oss</a></li>
           <li><a href="#styret">Styret</a></li>
           <li><a href="#prosjekter">Prosjekter</a></li>
@@ -43,19 +44,19 @@
     <p class="hero-undertekst" id="hjem-info"></p>
   </div>
 
-  <!-- ========== OM OSS ========== -->
+  <!-- ========== NYHETER / AKTUELT ==========
+       Innhold fylles fra content/nyheter.json av script.js -->
+  <section class="side-seksjon" id="nyheter">
+    <h2 id="nyheter-tittel">Aktuelt</h2>
+    <p id="nyheter-intro"></p>
+    <div id="nyheter-liste"><p>Laster nyheter...</p></div>
+  </section>
+
+  <!-- ========== OM OSS ==========
+       Innhold fylles fra content/om.json av script.js -->
   <section class="side-seksjon" id="om">
-    <h2>Om veilaget</h2>
-    <p>
-      Kolbjørnbakken og Berte Styris veg veilag er et privat veilag etablert gjennom jordskifteretten.
-      Veilaget har ansvar for drift, vedlikehold og utvikling av veiene i området,
-      inkludert grøfting, drenering, snøbrøyting og generell standard.
-    </p>
-    <p>
-      Veilaget består av eiendommer med tilknytning til veien, og driftes av et valgt styre.
-      Styret arbeider for å sikre trygg ferdsel, god fremkommelighet og langsiktig
-      forvaltning av infrastrukturen.
-    </p>
+    <h2 id="om-tittel">Om veilaget</h2>
+    <div id="om-innhold"><p>Laster...</p></div>
   </section>
 
   <!-- ========== STYRET ==========
@@ -67,46 +68,20 @@
     </div>
   </section>
 
-  <!-- ========== PROSJEKTER OG VEDLIKEHOLD ========== -->
+  <!-- ========== PROSJEKTER OG VEDLIKEHOLD ==========
+       Innhold fylles fra content/prosjekter.json av script.js -->
   <section class="side-seksjon" id="prosjekter">
-    <h2>Prosjekter og vedlikehold</h2>
-    <p>
-      Veilaget arbeider løpende med å sikre god standard på veiene.
-      Aktuelle og gjennomførte tiltak inkluderer:
-    </p>
-    <ul class="info-liste">
-      <li>Grøfting og drenering</li>
-      <li>Erosjonssikring</li>
-      <li>Forsterkning av veikropp</li>
-      <li>Overvannshåndtering og klimatilpasning</li>
-      <li>Snøbrøyting og strøing</li>
-      <li>Vurdering av asfaltering</li>
-      <li>Vedlikehold av belysning</li>
-    </ul>
-    <p><em>Status for prosjekter oppdateres fortløpende.</em></p>
+    <h2 id="prosjekter-tittel">Prosjekter og vedlikehold</h2>
+    <p id="prosjekter-intro"></p>
+    <ul class="info-liste" id="prosjekter-tiltak"></ul>
+    <p><em id="prosjekter-status"></em></p>
   </section>
 
-  <!-- ========== PRAKTISK INFORMASJON ========== -->
+  <!-- ========== PRAKTISK INFORMASJON ==========
+       Innhold fylles fra content/praktisk.json av script.js -->
   <section class="side-seksjon" id="praktisk">
-    <h2>Praktisk informasjon</h2>
-    <div class="info-grid">
-      <div class="info-kort">
-        <h3>Eierskifte</h3>
-        <p>Ny eier må melde fra til styret slik at medlemsregisteret oppdateres.</p>
-      </div>
-      <div class="info-kort">
-        <h3>Veilagsavgift</h3>
-        <p>Faktura sendes ut årlig. Ta kontakt med styret ved spørsmål.</p>
-      </div>
-      <div class="info-kort">
-        <h3>Snøbrøyting</h3>
-        <p>Brøyting utføres etter behov gjennom vinteren. Beboere bes parkere slik at brøyting kan utføres effektivt.</p>
-      </div>
-      <div class="info-kort">
-        <h3>Parkering og ferdsel</h3>
-        <p>Hold veien fri for hindringer og vis hensyn ved møteplasser og svinger.</p>
-      </div>
-    </div>
+    <h2 id="praktisk-tittel">Praktisk informasjon</h2>
+    <div class="info-grid" id="praktisk-grid"></div>
   </section>
 
   <!-- ========== DOKUMENTER ==========
@@ -121,28 +96,18 @@
     </div>
   </section>
 
-  <!-- ========== PERSONVERN (GDPR) ========== -->
+  <!-- ========== PERSONVERN (GDPR) ==========
+       Innhold fylles fra content/personvern.json av script.js -->
   <section class="side-seksjon" id="personvern">
-    <h2>Personvern (GDPR)</h2>
-    <p>
-      Veilaget behandler kun personopplysninger som er nødvendige for drift av veilaget.
-      Dette inkluderer navn, adresse, kontaktinformasjon, andel og innbetalinger.
-    </p>
-    <p>
-      Opplysningene brukes til medlemsregister, fakturering av veilagsavgift,
-      kommunikasjon med medlemmene og dokumentasjon i henhold til lovverket.
-    </p>
-    <p>
-      Styret har tilgang til opplysningene, og de deles ikke med andre med mindre
-      det er nødvendig for regnskap eller lovpålagte krav.
-      Medlemmer kan be om innsyn ved å kontakte styret.
-    </p>
+    <h2 id="personvern-tittel">Personvern (GDPR)</h2>
+    <div id="personvern-innhold"></div>
   </section>
 
-  <!-- ========== KONTAKT/MEDLEMSREGISTRERING ========== -->
+  <!-- ========== KONTAKT/MEDLEMSREGISTRERING ==========
+       Tittel + intro fylles fra content/kontakt.json av script.js -->
   <section class="side-seksjon" id="kontakt">
-    <h2>Kontakt oss</h2>
-    <p>For spørsmål, innspill, melding om eierskifte eller innsyn i personopplysninger:</p>
+    <h2 id="kontakt-tittel">Kontakt oss</h2>
+    <p id="kontakt-intro"></p>
 
     <div class="skjema-wrap">
       <form id="kontaktSkjema" action="https://api.web3forms.com/submit" method="POST">
@@ -206,6 +171,23 @@
     <p>Org.nr: <span id="footer-orgnr"></span></p>
     <p id="footer-kopirett"></p>
   </footer>
+
+  <!-- ========== NETLIFY IDENTITY ==========
+       Trengs for at magic link-innlogging via /admin/ skal virke.
+       Etter vellykket innlogging fra e-postlenken, send brukeren til /admin/.
+  -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', function (user) {
+        if (!user) {
+          window.netlifyIdentity.on('login', function () {
+            document.location.href = '/admin/';
+          });
+        }
+      });
+    }
+  </script>
 
   <!-- ========== SCRIPTS ==========
        script.js henter innhold fra content/-mappen (JSON-filer)
